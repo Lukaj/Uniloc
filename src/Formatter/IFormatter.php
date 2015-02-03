@@ -9,18 +9,18 @@ use Lukaj\Uniloc\LangTag;
  */
 interface IFormatter
 {
-	/**
-	 * @param string $message
-	 * @param array  $args
-	 *
-	 *  @return string
-	 */
-	function format ($message, array $args = NULL);
+    /**
+     * @param string $message
+     * @param array  $args
+     *
+     *  @return string
+     */
+    function format ($message, array $args = NULL);
 
-	/**
-	 * @param LangTag $langtag
-	 *
-	 * @return void
-	 */
-	function setLocale (LangTag $langtag);
+    /**
+     * @param LangTag $langtag
+     *
+     * @return void
+     */
+    function setLocale (LangTag $langtag);
 }

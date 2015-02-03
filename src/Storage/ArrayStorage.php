@@ -11,22 +11,22 @@ use Lukaj\Uniloc\Helpers;
  */
 class ArrayStorage implements IStorage
 {
-	/** @var array [string => string] */
-	private $arr;
+    /** @var array [string => string] */
+    private $arr;
 
-	/**
-	 * @param array $arr
-	 */
-	public function __construct(array $arr)
-	{
-		$this->arr = $arr;
-	}
+    /**
+     * @param array $arr
+     */
+    public function __construct(array $arr)
+    {
+        $this->arr = $arr;
+    }
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function load(LangTag $langtag, $domain = NULL)
-	{
-		return Helpers::arrayToDomain($this->arr);
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public function load(LangTag $langtag, $domain = NULL)
+    {
+        return Helpers::arrayToDomain($this->arr);
+    }
 }

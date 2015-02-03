@@ -10,17 +10,17 @@ use Lukaj\Uniloc\Catalog;
  */
 class Translator
 {
-	/** @var string */
-	const OUT_OF_DOMAIN = ':';
+    /** @var string */
+    const OUT_OF_DOMAIN = ':';
 
-	/** @var Catalog[] */
-	private $catalogs;
+    /** @var Catalog[] */
+    private $catalogs;
 
-	/** @var Catalog[] */
-	private $defaultCatalogs;
+    /** @var Catalog[] */
+    private $defaultCatalogs;
 
-	/** @var string|NULL */
-	private $domain;
+    /** @var string|NULL */
+    private $domain;
 
     /** @var LangTag */
     private $locale;
@@ -29,56 +29,56 @@ class Translator
     private $defaultLocale;
 
 
-	/**
-	 * @param Catalog      $catalog
-	 * @param Catalog|NULL $defaultCatalog
-	 * @param string|NULL  $domain
-	 */
-	public function __construct ($locale, $defaultLocale = NULL, $domain = NULL, CatalogFactory $catalogFactory = NULL)
-	{
-		$this->locale = LangTag::from($locale);
-		$this->defaultLocale = $defaultLocale ? LangTag::from($defaultLocale) : NULL;
+    /**
+     * @param Catalog      $catalog
+     * @param Catalog|NULL $defaultCatalog
+     * @param string|NULL  $domain
+     */
+    public function __construct ($locale, $defaultLocale = NULL, $domain = NULL, CatalogFactory $catalogFactory = NULL)
+    {
+        $this->locale = LangTag::from($locale);
+        $this->defaultLocale = $defaultLocale ? LangTag::from($defaultLocale) : NULL;
         $this->domain = $domain;
         $this->catalogFactory = $catalogFactory ? $catalogFactory : new CatalogFactory();
-	}
+    }
 
-	/**
-	 * @param string $messageId
-	 *
-	 * @return string Returns $messageId if message not found
-	 *
-	 * @throws LogicException if $messageId is not a string
-	 */
-	public function translate ($messageId)
-	{
-		if (!is_string($messageId)) {
-			throw new LogicException(__METHOD__ . ' expects string');
-		}
-		if (empty($messageId)) {
-			return '';
-		}
+    /**
+     * @param string $messageId
+     *
+     * @return string Returns $messageId if message not found
+     *
+     * @throws LogicException if $messageId is not a string
+     */
+    public function translate ($messageId)
+    {
+        if (!is_string($messageId)) {
+            throw new LogicException(__METHOD__ . ' expects string');
+        }
+        if (empty($messageId)) {
+            return '';
+        }
 
-		if ($messageId[0] === self::OUT_OF_DOMAIN) {
-			$messageId = substr($messageId, 1);
+        if ($messageId[0] === self::OUT_OF_DOMAIN) {
+            $messageId = substr($messageId, 1);
             $domain = strstr($messageId, '.', TRUE);
-		} else {
-			$domain = $this->domain;
-		}
+        } else {
+            $domain = $this->domain;
+        }
 
         $msg = $this->getMessage($messageId, $domain);
 
-		return $msg ? $msg['fmt']->format($msg['msg']) : $messageId;
-	}
+        return $msg ? $msg['fmt']->format($msg['msg']) : $messageId;
+    }
 
-	/**
-	 * @param string $msgid
+    /**
+     * @param string $msgid
      * @param string $domain
-	 *
-	 * @return array|NULL ['fmt' => IFormatter, 'msg' => string] or NULL if message not found
-	 */
-	private function getMessage ($msgid, $domain)
-	{
-		if (!array_key_exists($domain, $this->catalogs)) {
+     *
+     * @return array|NULL ['fmt' => IFormatter, 'msg' => string] or NULL if message not found
+     */
+    private function getMessage ($msgid, $domain)
+    {
+        if (!array_key_exists($domain, $this->catalogs)) {
             $this->loadCatalog($domain);
         }
 
@@ -86,8 +86,8 @@ class Translator
             $msg = $this->defaultLocale ? $this->defaultCatalogs[$domain]->getMessage($msgid) : NULL;
         }
 
-		return $msg;
-	}
+        return $msg;
+    }
 
     /**
      * @param string $domain

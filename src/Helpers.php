@@ -7,7 +7,7 @@ namespace Lukaj\Uniloc;
  */
 class Helpers
 {
-	/**
+    /**
      * Replaces placeholders in storage filename.
      *     [tag]      => complete language tag (such as en-US or he-IL-Ancient)
      *     [language] => language code
@@ -17,18 +17,18 @@ class Helpers
      *     [domain]   => domain
      *
      * @param LangTag $langtag
-	 * @param string  $pathMask
-	 * @param string  $domain
+     * @param string  $pathMask
+     * @param string  $domain
      *
-	 * @return string
-	 */
-	public static function parseStorageFilename (LangTag $langtag, $pathMask, $domain)
-	{
-		$placeholders = array('[tag]', '[language]', '[script]', '[region]', '[domain]');
+     * @return string
+     */
+    public static function parseStorageFilename (LangTag $langtag, $pathMask, $domain)
+    {
+        $placeholders = array('[tag]', '[language]', '[script]', '[region]', '[domain]');
         $replace = array($langtag->getTag(), $langtag->getLanguage(), $langtag->getScript(), $langtag->getRegion(), $domain);
 
-		return str_replace($placeholders, $replace, $pathMask);
-	}
+        return str_replace($placeholders, $replace, $pathMask);
+    }
 
     /**
      * @param  array $arr

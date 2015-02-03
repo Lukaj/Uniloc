@@ -10,110 +10,110 @@ use Lukaj\Uniloc\LangTagParser;
  */
 class LangTag
 {
-	/**@var string */
-	const SEPARATOR = '-';
+    /**@var string */
+    const SEPARATOR = '-';
 
-	/** @var string[] */
-	private $subtags;
+    /** @var string[] */
+    private $subtags;
 
-	/**
-	 * @param string $locale Valid locale identifier (only self::SEPARATOR is supported as a separator)
-	 *
-	 * @throws LogicException if locale is invalid
-	 */
+    /**
+     * @param string $locale Valid locale identifier (only self::SEPARATOR is supported as a separator)
+     *
+     * @throws LogicException if locale is invalid
+     */
 
-	public function __construct ($tag)
-	{
-		if (($this->subtags = LangTagParser::parse($tag, self::SEPARATOR)) === NULL) {
-			throw new LogicException("String {$tag} is not valid language tag.");
-		}
-	}
+    public function __construct ($tag)
+    {
+        if (($this->subtags = LangTagParser::parse($tag, self::SEPARATOR)) === NULL) {
+            throw new LogicException("String {$tag} is not valid language tag.");
+        }
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getTag ()
-	{
-		return implode($this->subtags, self::SEPARATOR);
-	}
+    /**
+     * @return string
+     */
+    public function getTag ()
+    {
+        return implode($this->subtags, self::SEPARATOR);
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getLanguage ()
-	{
-		return $this->subtags['language'];
-	}
+    /**
+     * @return string
+     */
+    public function getLanguage ()
+    {
+        return $this->subtags['language'];
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getScript ()
-	{
-		return isset($this->subtags['script']) ? $this->subtags['script'] : '';
-	}
+    /**
+     * @return string
+     */
+    public function getScript ()
+    {
+        return isset($this->subtags['script']) ? $this->subtags['script'] : '';
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getRegion ()
-	{
-		return isset($this->subtags['region']) ? $this->subtags['region'] : '';
-	}
+    /**
+     * @return string
+     */
+    public function getRegion ()
+    {
+        return isset($this->subtags['region']) ? $this->subtags['region'] : '';
+    }
 
-	/**
-	 * @return string
-	 */
-	public function __toString()
-	{
-		return $this->getTag();
-	}
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getTag();
+    }
 
-	/**
-	 * @return static|NULL Returns NULL if no other fallback exists
-	 */
-	public function getNextFallback ()
-	{
-		if (count($this->subtags) === 1) {
-			return NULL;
-		}
+    /**
+     * @return static|NULL Returns NULL if no other fallback exists
+     */
+    public function getNextFallback ()
+    {
+        if (count($this->subtags) === 1) {
+            return NULL;
+        }
 
-		$fallback = clone $this;
-		array_pop($fallback->subtags);
+        $fallback = clone $this;
+        array_pop($fallback->subtags);
 
-		return $fallback;
-	}
+        return $fallback;
+    }
 
-	/**
-	 * @param self|string $langtag
-	 *
-	 * @return self
-	 *
-	 * @throws LogicException if locale is invalid
-	 */
-	public function from ($langtag)
-	{
-		if ($langtag instanceof self) {
-			return $langtag;
-		}
+    /**
+     * @param self|string $langtag
+     *
+     * @return self
+     *
+     * @throws LogicException if locale is invalid
+     */
+    public function from ($langtag)
+    {
+        if ($langtag instanceof self) {
+            return $langtag;
+    }
 
-		try {
-			return new self($langtag);
-		} catch (LogicException $e) {
-			throw new LogicException($e->getMessage());
-		}
-	}
+        try {
+            return new self($langtag);
+        } catch (LogicException $e) {
+            throw new LogicException($e->getMessage());
+        }
+    }
 
-	/**
-	 * Convenience function if you want to use *non-standard* separator (other than hyphen)
-	 *
-	 * @param string $tag
-	 * @param string $newSeparator
-	 *
-	 * @return string
-	 */
-	public static function replaceSeparator ($tag, $newSeparator = self::SEPARATOR)
-	{
-		return preg_replace('#[^[:alpha:]]#', $newSeparator, $tag);
-	}
+    /**
+     * Convenience function if you want to use *non-standard* separator (other than hyphen)
+     *
+     * @param string $tag
+     * @param string $newSeparator
+     *
+     * @return string
+     */
+    public static function replaceSeparator ($tag, $newSeparator = self::SEPARATOR)
+    {
+        return preg_replace('#[^[:alpha:]]#', $newSeparator, $tag);
+    }
 }
