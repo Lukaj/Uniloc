@@ -101,6 +101,9 @@ class CatalogFactory
 
         $cache->clean();
         $files = array();
+        array_walk($this->formatters, function (IFormatter $formatter) use($langtag) {
+            $formatter->setLocale($langtag);
+        });
         $cache->save(self::CACHE_KEY_FMTS, $this->formatters);
 
         foreach ($this->resources as $resource) {
