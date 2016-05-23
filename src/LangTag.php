@@ -24,7 +24,7 @@ class LangTag
 
     public function __construct ($tag)
     {
-        if (($this->subtags = LangTagParser::parse($tag, self::SEPARATOR)) === NULL) {
+        if (($this->subtags = LangTagParser::parse($tag, self::SEPARATOR)) === null) {
             throw new LogicException("String {$tag} is not valid language tag.");
         }
     }
@@ -75,7 +75,7 @@ class LangTag
     public function getNextFallback ()
     {
         if (count($this->subtags) === 1) {
-            return NULL;
+            return null;
         }
 
         $fallback = clone $this;
@@ -95,7 +95,7 @@ class LangTag
     {
         if ($langtag instanceof self) {
             return $langtag;
-    }
+        }
 
         try {
             return new self($langtag);

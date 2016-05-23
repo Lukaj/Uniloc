@@ -20,7 +20,7 @@ class BlankFormatter implements IFormatter
     /**
      * {@inheritDoc}
      */
-    public function format($message, array $args = NULL)
+    public function format($message, array $args = null)
     {
         return $message;
     }

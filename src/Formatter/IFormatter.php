@@ -15,7 +15,7 @@ interface IFormatter
      *
      *  @return string
      */
-    function format ($message, array $args = NULL);
+    function format ($message, array $args = null);
 
     /**
      * @param LangTag $langtag

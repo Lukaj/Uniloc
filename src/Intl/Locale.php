@@ -1,125 +1,170 @@
 <?php
 
+namespace Lukaj\Uniloc;
+
 if (extension_loaded('intl')) {
-	class_alias('Locale', 'Lukaj\Intl\Locale');
-	return;
+    class_alias('Locale', 'Lukaj\Intl\Locale');
+    return;
 }
-
-namespace Lukaj\Intl;
-
-use Lukaj\NotSupportedException;
 
 /**
  * @internal
  */
 class Locale
 {
-	/** @var string */
-	private static $defaultLocale = 'en_US';
+    /** @var string */
+    private static $defaultLocale = 'en-US';
 
-	/** @var string */
-	private static const $separator = '_';
+    /**
+     * @throws LogicException if invoked
+     */
+    public function acceptFromHttp ($header)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
+    /**
+     * @throws LogicException if invoked
+     */
+    public function canonicalize ($locale)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function acceptFromHttp ($header)
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @param array $subtags
+     * @return string All unrecognized keys are considered as variant
+     */
+    public function composeLocale (array $subtags)
+    {
+        $loc = isset($subtags['language']) ? strtolower($subtags['language']) : '';
+        $loc .= isset($subtags['script']) ? (empty($loc) ? '' : $separator) . ucfirst($subtags['script']) : '';
+        $loc .= isset($subtags['region']) ? (empty($loc) ? '' : $separator) . strtoupper($subtags['region']) : '';
 
-	public function canonicalize ($locale)
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+        unset($subtags['language'], $subtags['script'], $subtags['region']);
+        ksort($subtags);
+        foreach ($subtags as $val) {
+            $loc .= (empty($loc) ? '' : $separator) . strtoupper($val);
+        }
+    }
 
-	/**
-	 * @param  array  $subtags
-	 * @return string          All unrecognized keys are considered as variant
-	 */
-	public function composeLocale (array $subtags)
-	{
-		$loc  = isset($subtags['language']) ? strtolower($subtags['language'])                                 : '';
-		$loc .= isset($subtags['script'])   ? (empty($loc) ? '' : $separator) . ucfirst($subtags['script'])    : '';
-		$loc .= isset($subtags['region'])   ? (empty($loc) ? '' : $separator) . strtoupper($subtags['region']) : '';
+    /**
+     * @throws LogicException if invoked
+     */
+    public function filterMatches ($langtag, $locale, $canonicalize = false)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-		unset($subtags['language'], $subtags['script'], $subtags['region']);
-		ksort($subtags);
-		for ($subtags as $val) {
-			$loc .= (empty($loc) ? '' : $separator) . strtoupper($val);
-		}
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function getAllVariants ($locale)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function filterMatches ($langtag, $locale, $canonicalize = FALSE)
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function getDefault ()
+    {
+        return self::$defaultLocale;
+    }
 
-	public function getAllVariants ($locale)
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function getDisplayLanguage ($locale, $in_locale = null)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function getDefault ()
-	{
-		return self::$defaultLocale;
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function getDisplayName ($locale, $in_locale = null)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function getDisplayLanguage ($locale, $in_locale = self::$defaultLocale)
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function getDisplayRegion ($locale, $in_locale = null)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function getDisplayName ( string $locale [, string $in_locale ] )
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function getDisplayScript ($locale, $in_locale = null)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function getDisplayRegion ( string $locale [, string $in_locale ] )
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function getDisplayVariant ($locale, $in_locale = null)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function getDisplayScript ( string $locale [, string $in_locale ] )
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function getKeywords ($locale)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function getDisplayVariant ( string $locale [, string $in_locale ] )
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function getPrimaryLanguage ($locale)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function getKeywords ( string $locale )
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function getRegion($locale)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function getPrimaryLanguage ( string $locale )
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function getScript ($locale)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function getRegion( string $locale )
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function lookup (array $langtag, $locale, $canonicalize = false, $default = null)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function getScript ( string $locale )
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
+    /**
+     * @throws LogicException if invoked
+     */
+    public function parseLocale ($locale)
+    {
+        throw LogicException('For using this method please install intl extension');
+    }
 
-	public function lookup ( array $langtag , string $locale [, bool $canonicalize = false [, string $default ]] )
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
-
-	public function parseLocale ( string $locale )
-	{
-		throw NotSupportedException('For using this function please install intl extension.');
-	}
-
-	public function setDefault ($locale)
-	{
-		self::$defaultLocale = $locale;
-	}
+    /**
+     * @param strign $locale
+     */
+    public function setDefault ($locale)
+    {
+        self::$defaultLocale = $locale;
+    }
 }

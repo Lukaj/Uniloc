@@ -2,8 +2,8 @@
 
 namespace Lukaj\Uniloc;
 
-use Lukaj\Uniloc\Formatter\IFormatter;
 use Nette\Caching\Cache;
+use Lukaj\Uniloc\Formatter\IFormatter;
 
 /**
  * @author Lukas Mazur

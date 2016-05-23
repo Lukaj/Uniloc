@@ -39,7 +39,7 @@ class LangTagParser
     {
         if (!is_string($tag)) {
             return NULL;
-    }
+        }
 
         $subtags = array();
         $state = self::ST_LANGUAGE;
@@ -56,18 +56,20 @@ class LangTagParser
                         $subtags['script'] = $subtag;
                         break;
                     }
+                    // break omitted intentionally
                 case self::ST_REGION:
                     if ($valid = self::parseRegion($subtag, $state)) {
                         $subtags['region'] = $subtag;
                         break;
                     }
+                    // break omitted intentionally
                 case self::ST_VARIANT:
                     $valid = self::parseVariant($subtag, $state);
                     $subtags['variant' . $variantCount++] = $subtag;
                     break;
             }
             if (!$valid) {
-                return NULL;
+                return null;
             }
         }
 

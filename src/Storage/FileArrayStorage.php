@@ -11,7 +11,7 @@ use Lukaj\Uniloc\LangTag;
  */
 class FileArrayStorage implements IStorage
 {
-    public function __construct ($pathMask = 'locale/lang/[tag].php', $arrayName = 'lang')
+    public function __construct ($pathMask = 'locale/messages/[tag].php', $arrayName = 'lang')
     {
         $this->pathMask = $pathMask;
         $this->arrayName = $arrayName;
@@ -20,7 +20,7 @@ class FileArrayStorage implements IStorage
     /**
      * {@inheritDoc}
      */
-    public function load(LangTag $langtag, $domain = NULL)
+    public function load(LangTag $langtag, $domain = null)
     {
         require Helpers::parseStorageFilename($langtag, $this->pathMask, $domain);
         return Helpers::arrayToDomain(${$this->arrayName});

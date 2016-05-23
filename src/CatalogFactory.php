@@ -2,15 +2,15 @@
 
 namespace Lukaj\Uniloc;
 
+use Nette\Caching\IStorage as ICacheStorage;
+use Nette\Caching\Storages\FileStorage;
+use Nette\Caching\Cache;
 use Lukaj\Uniloc\Catalog;
 use Lukaj\Uniloc\Formatter\IFormatter;
 use Lukaj\Uniloc\Formatter\MessageFormatter;
 use Lukaj\Uniloc\Storage\IStorage;
 use Lukaj\Uniloc\Storage\NeonStorage;
 use Lukaj\Uniloc\Resource;
-use Nette\Caching\IStorage as ICacheStorage;
-use Nette\Caching\Storages\FileStorage;
-use Nette\Caching\Cache;
 
 /**
  * @author Lukas Mazur
@@ -52,7 +52,7 @@ class CatalogFactory
      *
      * @return void
      */
-    public function __construct (ICacheStorage $cacheStorage = NULL)
+    public function __construct (ICacheStorage $cacheStorage = null)
     {
         $this->cacheStorage = $cacheStorage ? $cacheStorage : new FileStorage('tmp');
     }
@@ -66,7 +66,7 @@ class CatalogFactory
     {
         $this->resources[] = new Resource($formatter, $storage);
 
-        if (!in_array($formatter, $this->formatters, TRUE)) {
+        if (!in_array($formatter, $this->formatters, true)) {
             $this->formatters[] = $formatter;
         }
     }
@@ -77,7 +77,7 @@ class CatalogFactory
      *
      * @return Catalog
      */
-    public function create (LangTag $langtag, $domain = NULL)
+    public function create (LangTag $langtag, $domain = null)
     {
         $cache = new Cache($this->cacheStorage, self::getCacheNamespace($langtag, $domain));
 
@@ -104,14 +104,14 @@ class CatalogFactory
         $cache->save(self::CACHE_KEY_FMTS, $this->formatters);
 
         foreach ($this->resources as $resource) {
-            $fmt = array_search($resource->getFormatter(), $this->formatters, TRUE);
+            $fmt = array_search($resource->getFormatter(), $this->formatters, true);
             foreach ($resource->getAllMessages($langtag) as $msgid => $msg) {
                 $cache->save($msgid, self::makeMessage($msg, $fmt));
             }
             $files[] = $resource->getFile();
         }
 
-        $cache->save(self::CACHE_KEY_COMPILED, TRUE, array(Cache::FILES => $files));
+        $cache->save(self::CACHE_KEY_COMPILED, true, array(Cache::FILES => $files));
     }
 
     /**
@@ -139,7 +139,7 @@ class CatalogFactory
      *
      * @return string
      */
-    protected static function getCacheNamespace (LangTag $langtag, $domain = NULL)
+    protected static function getCacheNamespace (LangTag $langtag, $domain = null)
     {
         return "{self::CACHE_NAMESPACE}.{$langtag->getTag()}.{$domain}";
     }

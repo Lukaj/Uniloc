@@ -55,7 +55,7 @@ class Helpers
      */
     private static function flattenArray ($arr, $resultKey, &$result)
     {
-        // Implementation of this method could be much better with the yield keyword. Unfornutaly, because of compatibility with PHP < 5.5 it couldn't be used.
+        // Implementation of this method could be much better with the yield keyword. Unfortunately, because of compatibility with PHP < 5.5 it couldn't be used.
         if (is_array($arr)) {
             foreach ($arr as $key => $value) {
                 self::flattenArray($value, "{$resultKey}.{$key}", $result);

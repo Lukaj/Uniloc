@@ -11,9 +11,9 @@ interface IStorage
 {
     /*
      * @param Lukaj\Uniloc\LangTag $langtag
-     * @param string|NULL          $domain
+     * @param string|null          $domain
      *
-     * @return array Array is int the form [msgid => msg] where both key and value are strings. Returns NULL if file not found
+     * @return array Array is int the form [msgid => msg] where both key and value are strings. Returns null if file not found
      */
-    function load(LangTag $langtag, $domain = NULL);
+    function load(LangTag $langtag, $domain = null);
 }

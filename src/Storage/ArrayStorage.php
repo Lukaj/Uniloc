@@ -25,7 +25,7 @@ class ArrayStorage implements IStorage
     /**
      * {@inheritDoc}
      */
-    public function load(LangTag $langtag, $domain = NULL)
+    public function load(LangTag $langtag, $domain = null)
     {
         return Helpers::arrayToDomain($this->arr);
     }

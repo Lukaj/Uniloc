@@ -34,10 +34,10 @@ class Translator
      * @param Catalog|NULL $defaultCatalog
      * @param string|NULL  $domain
      */
-    public function __construct ($locale, $defaultLocale = NULL, $domain = NULL, CatalogFactory $catalogFactory = NULL)
+    public function __construct ($locale, $defaultLocale = null, $domain = null, CatalogFactory $catalogFactory = null)
     {
         $this->locale = LangTag::from($locale);
-        $this->defaultLocale = $defaultLocale ? LangTag::from($defaultLocale) : NULL;
+        $this->defaultLocale = $defaultLocale ? LangTag::from($defaultLocale) : null;
         $this->domain = $domain;
         $this->catalogFactory = $catalogFactory ? $catalogFactory : new CatalogFactory();
     }
@@ -60,7 +60,7 @@ class Translator
 
         if ($messageId[0] === self::OUT_OF_DOMAIN) {
             $messageId = substr($messageId, 1);
-            $domain = strstr($messageId, '.', TRUE);
+            $domain = strstr($messageId, '.', true);
         } else {
             $domain = $this->domain;
         }
@@ -83,7 +83,7 @@ class Translator
         }
 
         if (!($msg = $this->catalogs[$domain]->getMessage($msgid))) {
-            $msg = $this->defaultLocale ? $this->defaultCatalogs[$domain]->getMessage($msgid) : NULL;
+            $msg = $this->defaultLocale ? $this->defaultCatalogs[$domain]->getMessage($msgid) : null;
         }
 
         return $msg;

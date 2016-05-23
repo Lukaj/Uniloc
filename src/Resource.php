@@ -2,7 +2,6 @@
 
 namespace Lukaj\Uniloc;
 
-use SplFileInfo;
 use Lukaj\Uniloc\LangTag;
 use Lukaj\Uniloc\Formatter\IFormatter;
 use Lukaj\Uniloc\Storage\IStorage;
@@ -51,13 +50,5 @@ class Resource
     public function getFormatter ()
     {
         return $this->formatter;
-    }
-
-    /**
-     * @return SplFileInfo
-     */
-    public function getFile ()
-    {
-        return new SplFileInfo('test');
     }
 }
