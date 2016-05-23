@@ -79,7 +79,7 @@ class CatalogFactory
      */
     public function create (LangTag $langtag, $domain = null)
     {
-        $cache = new Cache($this->cacheStorage, self::getCacheNamespace($langtag, $domain));
+        $cache = new Cache($this->cacheStorage, self::getCacheNamespace($langtag, $domain ? $domain : ''));
 
         if (!$cache->load(self::CACHE_KEY_COMPILED) || $cache->load(self::CACHE_KEY_FMTS) !== $this->formatters) {
             $this->makeCache($langtag, $cache);
@@ -135,11 +135,11 @@ class CatalogFactory
 
     /**
      * @param Lukaj\Uniloc\LangTag $langtag
-     * @param string|NULL          $domain
+     * @param string               $domain
      *
      * @return string
      */
-    protected static function getCacheNamespace (LangTag $langtag, $domain = null)
+    protected static function getCacheNamespace (LangTag $langtag, $domain)
     {
         return "{self::CACHE_NAMESPACE}.{$langtag->getTag()}.{$domain}";
     }
