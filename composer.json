@@ -1,21 +1,30 @@
 {
     "name": "lukaj/uniloc",
-    "description": "Framework independent PHP localizaiton layer",
+
+    "description": "PHP localization layer",
+
+    "license": "LGPL-3.0",
+
     "require": {
-        "php": ">= 5.3.0",
-        "nette/caching": "@dev"
+        "php": ">= 5.3",
+        "nette/caching": "^2.3"
     },
+
     "suggest": {
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "nette/neon": "^2.3"
     },
+
     "require-dev": {
         "ext-intl": "*",
         "phpunit/phpunit": "@dev",
-        "nette/neon": "@dev"
+        "nette/neon": "^2.3"
     },
+
     "autoload": {
         "psr-4": {"Lukaj\\Uniloc\\": "src/"}
     },
+
     "autoload-dev": {
         "psr-4": {"Lukaj\\Uniloc\\Test\\": "tests/unit"}
     }
